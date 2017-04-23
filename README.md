@@ -1,16 +1,18 @@
 # Online Bank application. 
 
 Points applicable throughout the bank app:
-	A user can have multiple accounts to manage money.
-	User needs an admin’s authorization to deposit money.
-	User needs an admin’s authorization to withdraw money if  the transaction amount is greater than $1000 from his/her account.
-	User should be able to search through the list of users ( by name or email address) and add them as friends.
-	User can transfer money between his/her accounts and to a friend’s account without permission from an admin.
-	An admin has the authorization to approve or decline any pending transactions.
+
+	1. A user can have multiple accounts to manage money.
+	2. User needs an admin’s authorization to deposit money.
+	3. User needs an admin’s authorization to withdraw money if  the transaction amount is greater than $1000 from his/her account.
+	4. User should be able to search through the list of users ( by name or email address) and add them as friends.
+	5. User can transfer money between his/her accounts and to a friend’s account without permission from an admin.
+	6. An admin has the authorization to approve or decline any pending transactions.
 
 There will be two types of users in the system:
-	Admin
-	User
+
+	1. Admin
+	2. User
 
 # Admins
 
