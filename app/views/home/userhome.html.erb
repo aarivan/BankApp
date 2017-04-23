@@ -1,0 +1,109 @@
+<% content_for :title, "Home" %>
+<!--<h1>User Home Page</h1>-->
+
+<!-- Put Navigation stuff below-->
+
+
+
+<!-- Page content goes below-->
+
+<div class="container" style="background: #f9f9f9; border-radius: 1px; min-height: 600px; max-width: 1200px; ">
+
+  <div class="row">
+    <div class="col-md-2"><!--needs attention-->
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="/userhome">Home</a></li>
+        <li><a href="/transactions">Make a transfer</a></li>
+        <li><a href="/searchuser">Search User</a></li>
+        <li><a href="/beneficiaries">Manage Beneficiaries</a></li>
+        <li><a href="/usersettings">Settings</a></li>
+        <li><a href=/logout>Log out</a></li>
+      </ul>
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="/assets/logo.png" style="padding: 5px; margin-left: 30px; margin-top: 10px; max-height: 100px; max-width: 100px"/>
+          <legend>Welcome back, <%= session[:name]%></legend>
+          <% flash.each do |key, value| %>
+              <div class="col-md-10 col-sm-12 p-a-3">
+                <div class="row omb_row-sm-offset-3 no-gutter m-a-3">
+                  <div class="col-xs-12 col-sm-6">
+                    <%= content_tag(:span, value, :class => "label label-danger") %>
+                  </div>
+                </div></div>
+          <% end %>
+          <% flash.clear %>
+          <a href="/useraccountsrequest" class="btn btn-primary btn-sm" style="background-color: #73E9EA">Request new account</a>
+          <br/>
+        </div>
+        <div class="col-md-5">
+          <%= form_tag({:controller=> 'home', :action => :create, :method => :post}, {:class => 'form-horizontal'})%>
+          <div class="form-group" style="margin-left: 10px; margin-top: 20px">
+            <label for="select" class="control-label">Select Account</label>
+            <!--TODO: Get list of accounts from DB and populate below-->
+
+            <select class="form-control" id="select" name="account">
+              <option value="">---</option>
+              <% @accounts.each do |account| %>
+                  <% if session[:email] == account.email %>
+                      <option value="<%= account.account_number%>">
+                        #:
+                        <%= account.account_number%>
+                        , $:
+                        <%=  account.balance%>
+                      </option>
+                  <% end %>
+              <% end %>
+            </select>
+          </div>
+          <div class="form-group col-md-4">
+            <div class="col-lg-10 col-lg-offset-2">
+              <!--<button type="reset" class="btn btn-default">Reset</button>-->
+              <button type="submit" class="btn btn-primary">Go</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <label for="select" class="control-label">List of transactions</label>
+      <div class="jumbotron" style="background: #dfe3ee;">
+        <table class="table table-striped table-hover "><thead>
+        <tr>
+          <th>Transfer Type</th>
+          <th>Credited Account</th>
+          <th>Debited Account</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Balance</th>
+          <!--<th>Delete</th>-->
+        </tr>
+        </thead>
+          <tbody>
+          <% if @transfer%>
+            <% @transfers.each do |transfer| %>
+              <% if transfer %>
+                  <tr>
+                    <td><%= transfer.type%></td>
+                    <td><%= transfer.person %></td>
+                    <td><%= transfer.other_acc_number%></td>
+                    <td><%= transfer.credited_amount %></td>
+                    <td><%= transfer.debited_amount%></td>
+                    <td><%= transfer.status%></td>
+                    <td><%= transfer.balance%></td>
+                  </tr>
+              <% end %>
+              <% end %>
+            <% end %>
+          <tr>
+          </tr>
+          <tr>
+          </tr>
+          </tbody>
+        </table>
+        <!--TODO: Table containing a list of previous transactions come here-->
+      </div>
+    </div>
+
+  </div>
+</div>

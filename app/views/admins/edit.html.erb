@@ -1,0 +1,68 @@
+<% content_for :title, "Change Password" %>
+
+<div class="col-md-2"><!--needs attention-->
+  <ul class="nav nav-pills nav-stacked">
+    <li class="active"><a href="/admins">Home</a></li>
+    <li><a href="/transactionslist">List of Transactions</a></li>
+    <li><a href="/users">Users List</a></li>
+    <li><a href="/accounts">Accounts List</a></li>
+    <li><a href="/accountsrequest">New Account Request</a></li>
+    <li><a href="/adminshowall">Admin Details</a></li>
+    <li><a href="/admins/<%=session[:admin_id]%>/edit">Edit My Profile</a></li>
+    <li><a href=/logout>Log out</a></li>
+  </ul>
+</div>
+
+<div class="container" style="background: #fff; margin-top: 1%; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+  <% flash.each do |key, value| %>
+      <div class="col-md-10 col-sm-12 p-a-3">
+        <div class="row omb_row-sm-offset-3 no-gutter m-a-3">
+          <div class="col-xs-12 col-sm-6">
+            <%= content_tag(:span, value, :class => "label label-danger") %>
+          </div>
+        </div></div>
+  <% end %>
+  <% flash.clear %>
+  <br/>
+  <br class="row" style="padding: 20px">
+
+  <img src="/assets/logo.png" style="padding: 5px; margin-top: 10px; margin-left: 30px; max-height: 100px; max-width: 100px"/>
+  <br></br>
+  <%= form_tag({:action => :updateprofile, :controller => :admins, :method => :post}, {:class => 'form-horizontal'}) %>
+
+  <div class="form-group">
+    <label for="inputName" class="col-lg-2 control-label">Name</label>
+    <div class="col-lg-10">
+      <%= text_field "admin", "name", "value" => @admin.name, "class" => "form-control", "placeholder" => "Full Name" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail" class="col-lg-2 control-label">Email :</label>
+    <div class="col-lg-10">
+      <div class="col-lg-5" style="margin-top: 12px"><%=@admin.email%></div>
+      <div class="col-lg-5"><%= hidden_field "admin", "email", "value" => @admin.email, "class" => "form-control" , "placeholder" => " @domain.com" %></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="col-lg-2 control-label">Old Password</label>
+    <div class="col-lg-10">
+      <%= password_field "admin", "old_password_field", "class" => "form-control" , "required" => true  %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="col-lg-2 control-label">New Password</label>
+    <div class="col-lg-10">
+      <%= password_field "admin", "password_field", "class" => "form-control" %>
+    </div>
+  </div>
+  <input type="hidden" name="admin[id]" value=<%@admin.id%>>
+  <div class="form-group">
+    <div class="col-lg-10 col-lg-offset-2">
+      <button type="reset" class="btn btn-default">Reset</button>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+  </div>
+  </form>
+</div>
+</div>
